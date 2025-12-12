@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Ofícios</title>
+
+    <style>
+
+        /* ====== Fix Footer no Final ====== */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #FFFFFF;
+            color: #1E3A8A;
+        }
+
+        main {
+            flex: 1; /* empurra footer para baixo */
+        }
+        /* ================================= */
+
+        /* ======== NAVBAR ======== */
+        nav {
+            background-color: #1E3A8A;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        nav a {
+            color: #FFFFFF;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #93C5FD;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+            color: #1E3A8A;
+        }
+
+        table {
+            width: 90%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            text-align: center;
+            background-color: #FFFFFF;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        th {
+            background-color: #1E3A8A;
+            padding: 12px;
+            color: #FFFFFF;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #1D4ED8;
+            color: #1E3A8A;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #E8F0FE;
+        }
+
+        .btn-delete {
+            color: #EF4444;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-delete:hover {
+            color: #F87171;
+        }
+
+        .btn-update {
+            color: #2563EB;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-update:hover {
+            color: #1D4ED8;
+        }
+
+        /* ======== MODAL ======== */
+        #overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(3px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #editarBox {
+            background: #FFFFFF;
+            width: 90%;
+            max-width: 420px;
+            padding: 35px 40px;
+            border-radius: 14px;
+            border: 3px solid #1E3A8A;
+            box-shadow: 0px 0px 22px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            position: relative; /* Importante para o botão absoluto */
+            animation: aparecer 0.25s ease-out;
+        }
+
+        @keyframes aparecer {
+            from {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        #editarBox h3 {
+            margin: 0 0 10px;
+            text-align: center;
+            font-size: 22px;
+            color: #1E3A8A;
+        }
+
+        #editarBox label {
+            font-weight: bold;
+            color: #1E3A8A;
+            font-size: 15px;
+        }
+
+        #editarBox input {
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            border: 1px solid #1D4ED8;
+            border-radius: 6px;
+            margin-top: -4px;
+            box-sizing: border-box;
+        }
+
+        #salvarBtn,
+        #cancelarBtn {
+            width: 100%;
+            padding: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+
+        #salvarBtn {
+            background-color: #2563EB;
+            color: white;
+        }
+
+        #salvarBtn:hover {
+            background-color: #1D4ED8;
+        }
+
+        #cancelarBtn {
+            background-color: #EF4444;
+            color: white;
+        }
+
+        #cancelarBtn:hover {
+            background-color: #DC2626;
+        }
+
+        /* Botão de fechar dentro da caixa */
+        #btnFecharModal {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            background: #fff;
+            border: 2px solid #1E3A8A;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1E3A8A;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #btnFecharModal:hover {
+            color: #DC2626;
+            transform: scale(1.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background-color: #1E3A8A;
+        }
+
+        footer p {
+            padding: 5px;
+            color: #fff;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <nav>
+            <a href="/home">HOME</a>
+            <a href="/cadastro">CADASTRO</a>
+            <a href="#">LISTA</a>
+            <a href="/logout">Sair</a>
+        </nav>
+
+        <h2>Lista de Oficios</h2>
+
+        <div id="overlay">
+            <div id="editarBox">
+                <button id="btnFecharModal" onclick="fecharBox()">×</button>
+                <h3>Editar Ofício</h3>
+
+                <form id="formEditar" method="POST">
+                    <label>Nome:</label>
+                    <input type="text" name="nome" id="editNome">
+
+                    <label>Número:</label>
+                    <input type="text" name="numero" id="editNumero">
+
+                    <label>Data de Emissão:</label>
+                    <input type="date" name="data_emissao" id="editData">
+
+                    <button id="salvarBtn" type="submit">Salvar</button>
+                    <button id="cancelarBtn" type="button" onclick="fecharBox()">Cancelar</button>
+                </form>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Número</th>
+                    <th>Data de Emissão</th>
+                    <th>Apagar</th>
+                    <th>Atualizar</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% if (oficios && oficios.length > 0) { %>
+                    <% oficios.forEach(o => { %>
+                        <tr>
+                            <td><%= o.nome %></td>
+                            <td><%= o.numero %></td>
+                            <td><%= new Date(o.data_emissao).toLocaleDateString("pt-BR") %></td>
+
+                            <td><a href="/oficio/<%= o.id %>" class="btn-delete">APAGAR</a></td>
+
+                            <td>
+                                <a href="#" class="btn-update"
+                                    onclick="abrirEditar('<%= o.id %>', '<%= o.nome %>', '<%= o.numero %>', '<%= o.data_emissao %>')">
+                                    ATUALIZAR
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5" style="color:#EF4444;">Nenhum ofício cadastrado.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </main>
+
+    <footer>
+        <p>Paraipaba • Ceará • Brasil • 2025</p>
+        <p>Este sistema contribui para a Publicação de Ofícios da Câmara Municipal</p>
+        <p>© 2025 - Oficios Online | Desenvolvido por João Pedro</p>
+    </footer>
+
+    <script>
+        function abrirEditar(id, nome, numero, data) {
+            document.getElementById("overlay").style.display = "flex";
+
+            document.getElementById("editNome").value = nome;
+            document.getElementById("editNumero").value = numero;
+            document.getElementById("editData").value = data.substring(0, 10);
+
+            document.getElementById("formEditar").action = "/oficio/editar/" + id;
+        }
+
+        function fecharBox() {
+            document.getElementById("overlay").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

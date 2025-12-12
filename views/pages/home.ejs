@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofícios Online</title>
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <style>
+
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav {
+            background-color: #1E3A8A;
+            padding: 15px 30px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #3B82F6;
+        }
+
+        h1 {
+            color: #1E3A8A;
+            font-size: 3em;
+        }
+
+        /* Conteúdo principal fica flex:1 para empurrar o footer */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            color: #3B82F6;
+            margin-top: 20px;
+        }
+
+        .logo img {
+            max-width: 260px;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+        }
+
+        button {
+            background-color: #1E3A8A;
+            color: #FFFFFF;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #3B82F6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background-color: #1E3A8A;
+        }
+
+        footer p {
+            padding: 5px;
+            color: #fff;
+        }
+    
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#">HOME</a>
+        <a href="/cadastro">CADASTRO</a>
+        <a href="/lister">LISTA</a>
+        <a href="/logout">Sair</a>
+    </nav>
+
+    <main>
+        <div class="logo">
+            <img src="/img/logocamara.png" alt="Logo">
+        </div>
+
+        <div class="container">
+            <h1>OFÍCIOS ONLINE</h1>
+            <p>BEM-VINDO AO SISTEMA DE OFÍCIO ONLINE.</p>
+            <button onclick="location.href='/cadastro'">CADASTRAR NOVO OFICIO</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>Paraipaba • Ceará • Brasil • 2025</p>
+        <p>Este sistema contribui para a Publicação de Ofícios da Câmara Municipal</p>
+        <p>© 2025 - Oficios Online | Desenvolvido por João Pedro</p>
+    </footer>
+
+</body>
+</html>

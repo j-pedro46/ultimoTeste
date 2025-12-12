@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Ofícios de Paraipaba</title>
+    <style>
+        :root {
+            --azul: #1E3A8A;
+            --azul-claro: #3B82F6;
+            --bg-escuro: #111827;
+            --bg-geral: #1a2540; /* fundo maior */
+            --bg-formulario: #1F2937;
+            --input-bg: #E0EBFF;
+            --texto-claro: #FFFFFF;
+            --texto-escuro: #000000;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-escuro);
+            color: var(--texto-claro);
+        }
+
+        nav {
+            background-color: var(--azul);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--texto-claro);
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--azul-claro);
+        }
+
+        .geral {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+            background-color: var(--bg-geral);
+        }
+
+        /* Criando um painel dentro da div geral */
+        .painel {
+            width: 100%;
+            max-width: 600px; /* maior que os inputs */
+            padding: 40px;
+            background-color: var(--bg-formulario);
+            border-radius: 15px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        form p {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: var(--texto-claro);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--texto-claro);
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid var(--azul-claro);
+            background-color: var(--input-bg);
+            color: var(--texto-escuro);
+            outline: none;
+            transition: border-color 0.3s;
+            font-size: 14px;
+        }
+
+        input:focus {
+            border-color: var(--azul);
+        }
+
+        button {
+            background-color: var(--azul);
+            color: var(--texto-claro);
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            font-weight: bold;
+            font-size: 15px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: var(--azul-claro);
+        }
+    </style>
+</head>
+
+<body>
+   
+    <div class="geral">
+        <div class="painel">
+            <form action="/login" method="POST">
+                <p>CREDENCIAIS</p>
+                <label for="email">EMAIL</label>
+                <input type="email" name="email" placeholder="Digite seu email">
+
+                <label for="senha">SENHA</label>
+                <input type="password" name="senha" placeholder="Digite sua senha">
+
+                <button type="submit">ENVIAR</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
