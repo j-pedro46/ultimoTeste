@@ -5,323 +5,293 @@
     <meta charset="UTF-8">
     <title>Lista de Ofícios</title>
 
-    <style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-        /* ====== Fix Footer no Final ====== */
-        html, body {
-            height: 100%;
+    <style>
+        :root {
+            --azul: #2563EB;
+            --azul-hover: #1D4ED8;
+            --bg-escuro: #0F172A;
+            --bg-card: #1E293B;
+            --texto: #FFFFFF;
+        }
+
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            font-family: Arial, sans-serif;
-            background-color: #FFFFFF;
-            color: #1E3A8A;
+            background: linear-gradient(135deg, #0F172A, #1E3A8A);
         }
 
         main {
-            flex: 1; /* empurra footer para baixo */
+            flex: 1;
+            padding: 30px 0;
         }
-        /* ================================= */
 
-        /* ======== NAVBAR ======== */
+        /* CONTAINER PADRÃO DO SISTEMA */
+        .container-sistema {
+            width: 95%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
         nav {
-            background-color: #1E3A8A;
-            padding: 15px;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(8px);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 30px;
         }
 
         nav a {
-            color: #FFFFFF;
-            font-weight: bold;
+            color: var(--texto);
             text-decoration: none;
+            font-weight: 600;
             transition: 0.3s;
         }
 
         nav a:hover {
-            color: #93C5FD;
+            color: var(--azul);
         }
 
         h2 {
             text-align: center;
-            margin-top: 30px;
-            color: #1E3A8A;
+            margin: 20px 0;
+            color: var(--texto);
+        }
+
+        .tabela-box {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 25px;
+            width: 100%;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+            overflow-x: auto;
         }
 
         table {
-            width: 90%;
-            margin: 30px auto;
+            width: 100%;
             border-collapse: collapse;
-            text-align: center;
-            background-color: #FFFFFF;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.08);
+            color: #CBD5F5;
         }
 
         th {
-            background-color: #1E3A8A;
             padding: 12px;
-            color: #FFFFFF;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         td {
             padding: 12px;
-            border-bottom: 1px solid #1D4ED8;
-            color: #1E3A8A;
         }
 
-        tr:nth-child(even) td {
-            background-color: #E8F0FE;
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-delete,
+        .btn-update {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-right: 5px;
         }
 
         .btn-delete {
-            color: #EF4444;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-delete:hover {
-            color: #F87171;
+            background: #EF4444;
+            color: white;
         }
 
         .btn-update {
-            color: #2563EB;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
+            background: var(--azul);
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #DC2626;
         }
 
         .btn-update:hover {
-            color: #1D4ED8;
+            background: var(--azul-hover);
         }
 
-        /* ======== MODAL ======== */
         #overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.55);
-            backdrop-filter: blur(3px);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
             justify-content: center;
             align-items: center;
-            z-index: 1000;
         }
 
         #editarBox {
-            background: #FFFFFF;
-            width: 90%;
-            max-width: 420px;
-            padding: 35px 40px;
+            background: var(--bg-card);
+            padding: 30px;
             border-radius: 14px;
-            border: 3px solid #1E3A8A;
-            box-shadow: 0px 0px 22px rgba(0, 0, 0, 0.25);
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            position: relative; /* Importante para o botão absoluto */
-            animation: aparecer 0.25s ease-out;
-        }
-
-        @keyframes aparecer {
-            from {
-                transform: scale(0.7);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        #editarBox h3 {
-            margin: 0 0 10px;
-            text-align: center;
-            font-size: 22px;
-            color: #1E3A8A;
-        }
-
-        #editarBox label {
-            font-weight: bold;
-            color: #1E3A8A;
-            font-size: 15px;
+            width: 90%;
+            max-width: 400px;
+            color: white;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
         }
 
         #editarBox input {
             width: 100%;
-            padding: 14px;
-            font-size: 15px;
-            border: 1px solid #1D4ED8;
+            padding: 10px;
+            margin-top: 10px;
             border-radius: 6px;
-            margin-top: -4px;
-            box-sizing: border-box;
+            border: none;
         }
 
-        #salvarBtn,
-        #cancelarBtn {
-            width: 100%;
-            padding: 20px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
+        #editarBox button {
+            margin-top: 10px;
+            padding: 10px;
             border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            width: 100%;
             cursor: pointer;
-            margin: 5px 0;
         }
 
         #salvarBtn {
-            background-color: #2563EB;
+            background: var(--azul);
             color: white;
-        }
-
-        #salvarBtn:hover {
-            background-color: #1D4ED8;
         }
 
         #cancelarBtn {
-            background-color: #EF4444;
+            background: #EF4444;
             color: white;
-        }
-
-        #cancelarBtn:hover {
-            background-color: #DC2626;
-        }
-
-        /* Botão de fechar dentro da caixa */
-        #btnFecharModal {
-            position: absolute;
-            top: -12px;
-            right: -12px;
-            background: #fff;
-            border: 2px solid #1E3A8A;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 18px;
-            font-weight: bold;
-            color: #1E3A8A;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        #btnFecharModal:hover {
-            color: #DC2626;
-            transform: scale(1.2);
         }
 
         footer {
             text-align: center;
-            padding: 15px 0;
-            background-color: #1E3A8A;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         footer p {
-            padding: 5px;
-            color: #fff;
+            color: #94A3B8;
+            font-size: 12px;
         }
-
     </style>
 </head>
 
 <body>
 
-    <main>
-        <nav>
-            <a href="/home">HOME</a>
-            <a href="/cadastro">CADASTRO</a>
-            <a href="#">LISTA</a>
-            <a href="/logout">Sair</a>
-        </nav>
+    <nav>
+        <div class="container-sistema">
+            <div class="nav-content">
+                <a href="/home">HOME</a>
+                <a href="/cadastro">CADASTRO</a>
+                <a href="#">LISTA</a>
+                <a href="/logout">SAIR</a>
+            </div>
+        </div>
+    </nav>
 
-        <h2>Lista de Oficios</h2>
+    <main>
+        <div class="container-sistema">
+
+            <h2>Lista de Ofícios</h2>
+
+            <div class="tabela-box">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Número</th>
+                            <th>Descrição</th>
+                            <th>Data</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% if (oficios && oficios.length> 0) { %>
+                            <% oficios.forEach(o=> { %>
+                                <tr>
+                                    <td>
+                                        <%= o.nome %>
+                                    </td>
+                                    <td>
+                                        <%= o.numero %>
+                                    </td>
+                                    <td>
+                                        <%= o.descricao %>
+                                    </td>
+                                    <td>
+                                        <%= new Date(o.data_emissao).toLocaleDateString("pt-BR") %>
+                                    </td>
+
+                                    <td>
+                                        <a href="/oficio/<%= o.id %>" class="btn-delete">Apagar</a>
+                                        <a href="#" class="btn-update"
+                                            onclick="abrirEditar('<%= o.id %>', '<%= o.nome %>', '<%= o.numero %>','<%= o.descricao %>', '<%= o.data_emissao %>')">
+                                            Editar
+                                        </a>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td colspan="4" style="color:#EF4444;">Nenhum ofício cadastrado.</td>
+                                        </tr>
+                                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
 
         <div id="overlay">
             <div id="editarBox">
-                <button id="btnFecharModal" onclick="fecharBox()">×</button>
-                <h3>Editar Ofício</h3>
-
                 <form id="formEditar" method="POST">
-                    <label>Nome:</label>
-                    <input type="text" name="nome" id="editNome">
-
-                    <label>Número:</label>
-                    <input type="text" name="numero" id="editNumero">
-
-                    <label>Data de Emissão:</label>
+                    <input type="text" name="nome" id="editNome" placeholder="Nome">
+                    <input type="text" name="numero" id="editNumero" placeholder="Número">
                     <input type="date" name="data_emissao" id="editData">
-
                     <button id="salvarBtn" type="submit">Salvar</button>
                     <button id="cancelarBtn" type="button" onclick="fecharBox()">Cancelar</button>
                 </form>
             </div>
         </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Número</th>
-                    <th>Data de Emissão</th>
-                    <th>Apagar</th>
-                    <th>Atualizar</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <% if (oficios && oficios.length > 0) { %>
-                    <% oficios.forEach(o => { %>
-                        <tr>
-                            <td><%= o.nome %></td>
-                            <td><%= o.numero %></td>
-                            <td><%= new Date(o.data_emissao).toLocaleDateString("pt-BR") %></td>
-
-                            <td><a href="/oficio/<%= o.id %>" class="btn-delete">APAGAR</a></td>
-
-                            <td>
-                                <a href="#" class="btn-update"
-                                    onclick="abrirEditar('<%= o.id %>', '<%= o.nome %>', '<%= o.numero %>', '<%= o.data_emissao %>')">
-                                    ATUALIZAR
-                                </a>
-                            </td>
-                        </tr>
-                    <% }) %>
-                <% } else { %>
-                    <tr>
-                        <td colspan="5" style="color:#EF4444;">Nenhum ofício cadastrado.</td>
-                    </tr>
-                <% } %>
-            </tbody>
-        </table>
     </main>
 
     <footer>
         <p>Paraipaba • Ceará • Brasil • 2025</p>
-        <p>Este sistema contribui para a Publicação de Ofícios da Câmara Municipal</p>
-        <p>© 2025 - Oficios Online | Desenvolvido por João Pedro</p>
+        <p>Sistema de Publicação de Ofícios da Câmara Municipal</p>
+        <p>© 2025 - Ofícios Online | Desenvolvido por João Pedro</p>
     </footer>
 
     <script>
-        function abrirEditar(id, nome, numero, data) {
+        function abrirEditar(id, nome, numero, descricao, data) {
             document.getElementById("overlay").style.display = "flex";
-
             document.getElementById("editNome").value = nome;
             document.getElementById("editNumero").value = numero;
+            document.getElementById("editDescricao").value = descricao;
             document.getElementById("editData").value = data.substring(0, 10);
-
             document.getElementById("formEditar").action = "/oficio/editar/" + id;
         }
-
         function fecharBox() {
             document.getElementById("overlay").style.display = "none";
         }
     </script>
 
 </body>
+
 </html>

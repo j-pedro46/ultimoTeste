@@ -5,135 +5,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Ofícios de Paraipaba</title>
+
+    <!-- Fonte moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --azul: #1E3A8A;
-            --azul-claro: #3B82F6;
-            --bg-escuro: #111827;
-            --bg-geral: #1a2540; /* fundo maior */
-            --bg-formulario: #1F2937;
-            --input-bg: #E0EBFF;
-            --texto-claro: #FFFFFF;
-            --texto-escuro: #000000;
+            --azul: #2563EB;
+            --azul-hover: #1D4ED8;
+            --bg-escuro: #0F172A;
+            --bg-form: #1E293B;
+            --input-bg: #F1F5F9;
+            --texto: #FFFFFF;
+            --borda: #3B82F6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: var(--bg-escuro);
-            color: var(--texto-claro);
-        }
-
-        nav {
-            background-color: var(--azul);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        nav a {
-            color: var(--texto-claro);
-            font-weight: bold;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--azul-claro);
-        }
-
-        .geral {
-            flex: 1;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 50px;
-            background-color: var(--bg-geral);
+            background: linear-gradient(135deg, #0F172A, #1E3A8A);
         }
 
-        /* Criando um painel dentro da div geral */
         .painel {
             width: 100%;
-            max-width: 600px; /* maior que os inputs */
-            padding: 40px;
-            background-color: var(--bg-formulario);
-            border-radius: 15px;
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.6);
+            max-width: 420px;
+            background: var(--bg-form);
+            padding: 45px 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.6);
         }
 
-        form p {
+        .titulo {
             text-align: center;
-            font-size: 22px;
-            margin-bottom: 20px;
-            font-weight: bold;
-            color: var(--texto-claro);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--texto);
+        }
+
+        .grupo {
+            margin-bottom: 18px;
         }
 
         label {
+            font-size: 13px;
+            font-weight: 600;
             display: block;
-            margin-top: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            color: var(--texto-claro);
+            margin-bottom: 6px;
         }
 
         input {
             width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border-radius: 5px;
-            border: 1px solid var(--azul-claro);
-            background-color: var(--input-bg);
-            color: var(--texto-escuro);
-            outline: none;
-            transition: border-color 0.3s;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            background: var(--input-bg);
             font-size: 14px;
+            transition: 0.3s;
         }
 
         input:focus {
-            border-color: var(--azul);
+            border-color: var(--borda);
+            outline: none;
         }
 
         button {
-            background-color: var(--azul);
-            color: var(--texto-claro);
-            border: none;
-            padding: 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 15px;
             width: 100%;
-            font-weight: bold;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            background: var(--azul);
+            color: white;
+            font-weight: 600;
             font-size: 15px;
-            transition: background-color 0.3s;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
         button:hover {
-            background-color: var(--azul-claro);
+            background: var(--azul-hover);
+            transform: scale(1.02);
         }
     </style>
 </head>
 
 <body>
-   
-    <div class="geral">
-        <div class="painel">
-            <form action="/login" method="POST">
-                <p>CREDENCIAIS</p>
-                <label for="email">EMAIL</label>
-                <input type="email" name="email" placeholder="Digite seu email">
 
-                <label for="senha">SENHA</label>
-                <input type="password" name="senha" placeholder="Digite sua senha">
+    <div class="painel">
+        <form action="/login" method="POST">
+            <div class="titulo">Acesso ao Sistema</div>
 
-                <button type="submit">ENVIAR</button>
-            </form>
-        </div>
+            <div class="grupo">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Digite seu email" required>
+            </div>
+
+            <div class="grupo">
+                <label>Senha</label>
+                <input type="password" name="senha" placeholder="Digite sua senha" required>
+            </div>
+
+            <button type="submit">Entrar</button>
+        </form>
     </div>
+
 </body>
 
 </html>

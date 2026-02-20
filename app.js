@@ -100,12 +100,12 @@ app.get('/cadastro', protegerRota, (req, res) => {
 
 // SALVAR OFÍCIO
 app.post('/salvar', protegerRota, async (req, res) => {
-  const { nome, numero, data_emissao } = req.body;
-
+  const { nome, numero, descricao, data_emissao } = req.body;
+       // colocar o campo dentro do banco de dados e mostrar na tela a descrição do oficio, colocar o campo descrição no form de cadastro e edição
   try {
     await pool.query(
-      'INSERT INTO oficio ( nome, numero, data_emissao) VALUES ($1,$2,$3)',
-      [ nome, numero, data_emissao]
+      'INSERT INTO oficio ( nome, numero, descricao, data_emissao) VALUES ($1,$2,$3,$4)',
+      [ nome, numero, descricao, data_emissao]
     );
 
     res.redirect('/lister')
