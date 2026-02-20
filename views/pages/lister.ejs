@@ -260,16 +260,22 @@
 
         <div id="overlay">
             <div id="editarBox">
-                <form id="formEditar" method="POST">
+                <form method="POST" id="formEditar">
+
                     <input type="text" name="nome" id="editNome" placeholder="Nome">
+
                     <input type="text" name="numero" id="editNumero" placeholder="Número">
+
+                    <input type="text" name="descricao" id="editDescricao" placeholder="Descrição">
+
                     <input type="date" name="data_emissao" id="editData">
+
                     <button id="salvarBtn" type="submit">Salvar</button>
                     <button id="cancelarBtn" type="button" onclick="fecharBox()">Cancelar</button>
+
                 </form>
             </div>
         </div>
-
     </main>
 
     <footer>
@@ -277,16 +283,19 @@
         <p>Sistema de Publicação de Ofícios da Câmara Municipal</p>
         <p>© 2025 - Ofícios Online | Desenvolvido por João Pedro</p>
     </footer>
-
     <script>
         function abrirEditar(id, nome, numero, descricao, data) {
+
             document.getElementById("overlay").style.display = "flex";
+
             document.getElementById("editNome").value = nome;
             document.getElementById("editNumero").value = numero;
             document.getElementById("editDescricao").value = descricao;
             document.getElementById("editData").value = data.substring(0, 10);
+
             document.getElementById("formEditar").action = "/oficio/editar/" + id;
         }
+
         function fecharBox() {
             document.getElementById("overlay").style.display = "none";
         }
